@@ -721,9 +721,9 @@ pub fn configureSerialPort(port: std.fs.File, config: SerialConfig) !void {
                 .mark => {
                     settings.cflag.PARODD = true;
                     // settings.cflag.CMSPAR = true;
-                    settings.cflag._ |= (1 << 14);
+                    settings.cflag._12 |= (1 << 14);
                 },
-                .space => settings.cflag._ |= 1,
+                .space => settings.cflag._12 |= 1,
             }
             if (config.parity != .none) {
                 settings.iflag.INPCK = true; // enable parity checking
@@ -737,7 +737,7 @@ pub fn configureSerialPort(port: std.fs.File, config: SerialConfig) !void {
                     settings.iflag.IXOFF = true;
                 },
                 // .hardware => settings.cflag.CRTSCTS = true,
-                .hardware => settings.cflag._ |= 1 << 15,
+                .hardware => settings.cflag._12 |= 1 << 15,
             }
 
             switch (config.stop_bits) {
